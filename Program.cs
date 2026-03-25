@@ -1,30 +1,19 @@
 ﻿using System;
+using TransactionData;
+using TransactionModel;
 
 class Program
 {
-
-
-
-    static string[] num = new string[10];
-    static string[] net = new string[10];
-    static decimal[] sum = new decimal[10];
-    static int index = 0;
-    static string user;
-
     static void Main()
-
     {
-
-
+        DataService service = new DataService();
+        service.LoadTransactions();
 
         Console.Write("Enter your name: ");
-        user = Console.ReadLine();
+        string user = Console.ReadLine() ?? "";
 
         while (true)
-
         {
-
-
             Console.WriteLine("\n=== LOAD SYSTEM ===");
             Console.WriteLine("1. Add Load");
             Console.WriteLine("2. View Load");
@@ -32,42 +21,34 @@ class Program
             Console.WriteLine("4. Delete Load");
             Console.WriteLine("5. Exit");
             Console.Write("Choose: ");
-            string select = Console.ReadLine();
+
+            string select = Console.ReadLine() ?? "";
 
             if (select == "1")
-
             {
-
-
                 Console.Write("Mobile: ");
-                num[index] = Console.ReadLine();
-
+                string mobile = Console.ReadLine() ?? "";
 
                 Console.Write("Network: ");
-                net[index] = Console.ReadLine();
-
-
+                string network = Console.ReadLine() ?? "";
 
                 Console.Write("Amount: ");
-                sum[index] = Convert.ToDecimal(Console.ReadLine());
+                decimal amount = Convert.ToDecimal(Console.ReadLine());
 
-                index++;
-
+                service.Add(mobile, network, amount);
 
                 Console.WriteLine("Load Added!");
             }
-
-
-
             else if (select == "2")
-
             {
+                var loads = service.GetAll();
 
-                for (int i = 0; i < index; i++)
+                for (int i = 0; i < loads.Count; i++)
                 {
-
-
-                    Console.WriteLine(i + " | " + num[i] + " | " + net[i] + " | ₱" + sum[i]);
+                    Console.WriteLine(i + " | " +
+                        loads[i].MobileNumber + " | " +
+                        loads[i].Network + " | ₱" +
+                        loads[i].Amount);
                 }
             }
             else if (select == "3")
@@ -76,31 +57,35 @@ class Program
                 int i = Convert.ToInt32(Console.ReadLine());
 
                 Console.Write("New Mobile: ");
-                num[i] = Console.ReadLine();
+                string mobile = Console.ReadLine() ?? "";
 
                 Console.Write("New Network: ");
-                net[i] = Console.ReadLine();
+                string network = Console.ReadLine() ?? "";
 
                 Console.Write("New Amount: ");
-                sum[i] = Convert.ToDecimal(Console.ReadLine());
+                decimal amount = Convert.ToDecimal(Console.ReadLine());
+
+                var updatedLoad = new Load
+                {
+                    MobileNumber = mobile,
+                    Network = network,
+                    Amount = amount
+                };
+
+                service.Update(i, updatedLoad);
 
                 Console.WriteLine("Updated!");
             }
             else if (select == "4")
-
             {
-
                 Console.Write("Enter Index to Delete: ");
                 int i = Convert.ToInt32(Console.ReadLine());
 
-                num[i] = "";
-                net[i] = "";
-                sum[i] = 0;
+                service.Delete(i);
 
                 Console.WriteLine("Deleted!");
             }
             else if (select == "5")
-
             {
                 Console.WriteLine($"Come back again, {user}!");
                 break;
