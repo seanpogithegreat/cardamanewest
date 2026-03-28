@@ -12,4 +12,8 @@
     <ProjectReference Include="..\TransactionModel\TransactionModel.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="TransactionModel\" />
+  </ItemGroup>
+
 </Project>

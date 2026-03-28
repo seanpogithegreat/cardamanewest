@@ -1,0 +1,22 @@
+[
+  {
+    "MobileNumber": "0912313123123",
+    "Network": "smart",
+    "Amount": 10000
+  },
+  {
+    "MobileNumber": "0912312321",
+    "Network": "dito",
+    "Amount": 8000000
+  },
+  {
+    "MobileNumber": "981231831231",
+    "Network": "smart",
+    "Amount": 5000
+  },
+  {
+    "MobileNumber": "09123131231",
+    "Network": "smart",
+    "Amount": 100000
+  }
+]

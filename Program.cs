@@ -1,13 +1,14 @@
 ﻿using System;
 using TransactionData;
 using TransactionModel;
+using TransactionApp;
 
 class Program
 {
     static void Main()
     {
-        DataService service = new DataService();
-        service.LoadTransactions();
+        AppService service = new AppService();
+        
 
         Console.Write("Enter your name: ");
         string user = Console.ReadLine() ?? "";
@@ -35,20 +36,22 @@ class Program
                 Console.Write("Amount: ");
                 decimal amount = Convert.ToDecimal(Console.ReadLine());
 
-                service.Add(mobile, network, amount);
+                service.AddLoad(mobile, network, amount);
 
                 Console.WriteLine("Load Added!");
             }
             else if (select == "2")
             {
-                var loads = service.GetAll();
+                var loads = service.ViewLoads();
 
                 for (int i = 0; i < loads.Count; i++)
                 {
-                    Console.WriteLine(i + " | " +
+                    Console.WriteLine(
+                        loads[i].Id + " | " +
                         loads[i].MobileNumber + " | " +
                         loads[i].Network + " | ₱" +
-                        loads[i].Amount);
+                        loads[i].Amount
+);
                 }
             }
             else if (select == "3")
@@ -72,7 +75,7 @@ class Program
                     Amount = amount
                 };
 
-                service.Update(i, updatedLoad);
+                service.UpdateLoad(i, mobile, network, amount);
 
                 Console.WriteLine("Updated!");
             }
@@ -81,7 +84,7 @@ class Program
                 Console.Write("Enter Index to Delete: ");
                 int i = Convert.ToInt32(Console.ReadLine());
 
-                service.Delete(i);
+                service.DeleteLoad(i);
 
                 Console.WriteLine("Deleted!");
             }
