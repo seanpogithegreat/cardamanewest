@@ -20,7 +20,7 @@ namespace TransactionApp
                 MobileNumber = mobile,
                 Network = network,
                 Amount = amount
-                // Id is usually 0 here; SQL handles the auto-increment
+                
             };
 
             dataService.Add(load);
@@ -33,10 +33,10 @@ namespace TransactionApp
 
         public void UpdateLoad(int id, string mobile, string network, decimal amount)
         {
-            // FIX: You were missing 'Amount = amount' inside the object initializer
+            
             var load = new Load
             {
-                Id = id, // Good practice to include the ID in the model
+                Id = id, 
                 MobileNumber = mobile,
                 Network = network,
                 Amount = amount
